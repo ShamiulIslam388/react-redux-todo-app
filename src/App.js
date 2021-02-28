@@ -1,10 +1,32 @@
 import "./styles.css";
+import Todo from "./Todo";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 
-export default function App() {
+function todoReducer(state = [], action) {
+  switch (action.type) {
+    case "ADD_TODO":
+      let newState = [...state, action.value];
+      return newState;
+    case "REMOVE_TODO":
+      return [
+        ...state.slice(0, action.value),
+        ...state.slice(action.value + 1, state.length - 1)
+      ];
+    default:
+      return state;
+  }
+}
+const store = createStore(todoReducer);
+
+function App() {
   return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <Todo />
+      </div>
+    </Provider>
   );
 }
+
+export default App;
