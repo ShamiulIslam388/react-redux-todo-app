@@ -2,3 +2,14 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+ul {
+  list-style: none;
+}
+
+ul li {
+  background: black;
+  color: #fff;
+  padding: 5px;
+  margin-bottom: 10px;
+}

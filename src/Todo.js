@@ -1,6 +1,21 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 
-function Todo() {
+const ADD_TODO = "ADD_TODO";
+function add_todo(todo) {
+  return {
+    type: ADD_TODO,
+    value: todo
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+    todos: state
+  };
+}
+
+function Todo(props) {
   const [userInput, setUserInput] = useState("");
 
   return (
@@ -13,10 +28,23 @@ function Todo() {
           onChange={(e) => setUserInput(e.target.value)}
         />
 
-        <button>Add Todo</button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            return props.dispatch(add_todo(userInput));
+          }}
+        >
+          Add Todo
+        </button>
       </form>
+      <h4>Todo List </h4>
+      <ul>
+        {props.todos.map((todo) => {
+          return <li>{todo}</li>;
+        })}
+      </ul>
     </div>
   );
 }
 
-export default Todo;
+export default connect(mapStateToProps, null)(Todo);
