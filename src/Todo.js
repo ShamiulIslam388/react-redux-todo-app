@@ -40,7 +40,9 @@ function Todo(props) {
         <button
           onClick={(e) => {
             e.preventDefault();
-            props.dispatch(add_todo(userInput));
+            if (userInput !== "") {
+              props.dispatch(add_todo(userInput));
+            }
             setUserInput("");
           }}
         >
@@ -55,7 +57,7 @@ function Todo(props) {
               <li
                 onClick={(e) => {
                   let index = props.todos.findIndex((k) => k === todo);
-                  return props.dispatch(remove_todo(index));
+                  props.dispatch(remove_todo(index));
                 }}
               >
                 {todo}

@@ -9,10 +9,14 @@ function todoReducer(state = [], action) {
       let newState = [...state, action.value];
       return newState;
     case "REMOVE_TODO":
-      return [
-        ...state.slice(0, action.value),
-        ...state.slice(action.value + 1, state.length - 1)
-      ];
+      // return [
+      //   ...state.slice(0, action.value),
+      //   ...state.slice(action.value + 1, state.length - 1)
+      // ];
+
+      let newStates = [...state];
+      console.log(newStates);
+      return newStates.filter((data, index) => index !== action.value);
     default:
       return state;
   }
