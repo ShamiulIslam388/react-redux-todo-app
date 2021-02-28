@@ -2,10 +2,19 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 const ADD_TODO = "ADD_TODO";
+const REMOVE_TODO = "REMOVE_TODO";
+
 function add_todo(todo) {
   return {
     type: ADD_TODO,
     value: todo
+  };
+}
+
+function remove_todo(index) {
+  return {
+    type: REMOVE_TODO,
+    value: index
   };
 }
 
@@ -38,11 +47,21 @@ function Todo(props) {
           Add Todo
         </button>
       </form>
-      <h4>Todo List </h4>
+      {props.todos.length > 0 && <h4>Todo List </h4>}
       <ul>
-        {props.todos.map((todo) => {
-          return <li>{todo}</li>;
-        })}
+        {props.todos &&
+          props.todos.map((todo) => {
+            return (
+              <li
+                onClick={(e) => {
+                  let index = props.todos.findIndex((k) => k === todo);
+                  return props.dispatch(remove_todo(index));
+                }}
+              >
+                {todo}
+              </li>
+            );
+          })}
       </ul>
     </div>
   );
