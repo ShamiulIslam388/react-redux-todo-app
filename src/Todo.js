@@ -31,7 +31,8 @@ function Todo(props) {
         <button
           onClick={(e) => {
             e.preventDefault();
-            return props.dispatch(add_todo(userInput));
+            props.dispatch(add_todo(userInput));
+            setUserInput("");
           }}
         >
           Add Todo
